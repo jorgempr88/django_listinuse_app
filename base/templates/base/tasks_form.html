@@ -1,0 +1,17 @@
+{% extends 'base/main.html' %}
+{% block content %}
+
+<div class="header-bar">
+    <a href="{% url 'tasks' %}">&#8592; Atras</a>
+</div>
+
+<div class="form-body">
+    <h3>Formulario Crear-tarea</h3>
+    <form method="POST" action="" style="margin-top:20px; display:block;">
+        {%csrf_token%}
+        {{form.as_p}}
+        <input class="button" type="submit" value="submit">
+    </form>
+</div>
+
+{% endblock content %}

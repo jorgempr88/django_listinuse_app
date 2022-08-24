@@ -1,0 +1,67 @@
+{% extends 'base/main.html' %}
+{% block content %}
+<!-- ========== Start Section ========== -->
+
+<!-- ========== End Section ========== -->
+
+<div class="header-bar">
+    <div>
+        <h1>Hola {{request.user|title}}</h1>
+        <h3 style="margin: 0">Tienes <i>{{count}}</i> Tarea incompleta{{ count|pluralize:"s" }}</h3>
+    </div>
+    
+    {% if request.user.is_authenticated %}
+    <!-- <p>{{request.user}}</p> -->
+    <a href="{% url 'logout' %}">Salir</a>
+    {% else %}
+    <a href="{% url 'login' %}">Iniciar sesion</a>
+    {% endif %}
+    
+</div>
+
+
+
+<div id="buscar-w" >
+    
+    <form action="" method="get" style="margin-top:20px; display:flex;">
+        <input type="text" name="Buscar-area" id="" value="{{s_busqueda}}">
+        <input class="button" type="submit" value="Buscar">
+    </form>
+    <a id="a-link" href="{% url 'create' %}">&#x2b;</a>
+</div>
+
+
+
+
+<div class="tarea-item-w">
+    {% for t in lista %}
+    <div class="tarea-w">
+        {% if t.completado %}
+        <div class="tarea-titulo">
+            <div class="tarea-completada-icon"></div>
+            <i><s><a href="{% url 'update' t.id %}">{{t}}, {{t.crear|timeuntil}}</a></s></i>
+        </div>
+        <a class="borrar-link" href="{% url 'delete' t.id %}">&#215;</a>
+
+        {% else %}
+        <div class="tarea-titulo">
+            <div class="tarea-incompleta-icon"></div>
+            <a href="{% url 'update' t.id %}">{{t}}, {{t.crear}}</a>
+        </div>
+        <a class="borrar-link" href="{% url 'delete' t.id %}">&#215;</a>
+        {% endif %}
+        
+
+    </div>
+    {% empty %}
+    <h3>no hay intems in lista</h3>
+    {% endfor %}
+</div>
+
+{% endblock content %}
+
+
+
+
+
+
